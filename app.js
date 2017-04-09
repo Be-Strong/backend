@@ -5,7 +5,8 @@ var express = require('express'),
     mongoose = require('mongoose'),
     router = express.Router(),
     corser = require('corser'),
-    userController = require('./controllers/user_controller')
+    userController = require('./controllers/user_controller'),
+    matchController = require('./controllers/match_controller')
 
 
 var port = 8086;
@@ -38,6 +39,9 @@ router.get('/users/create', userController.signupPage)
 router.post('/users/create', userController.createUser)
 router.get('/users/login', userController.loginPage)
 router.post('/users/login', userController.loginUser)
+
+// get similar survivors
+router.post('/match', matchController.getMatch)
 
 
 app.listen(port);

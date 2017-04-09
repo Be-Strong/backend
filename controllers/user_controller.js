@@ -4,15 +4,34 @@ var Utils = require("../utils/utility.js")
 
 exports.createUser = function(req, res) {
 
-    var EmailV, phoneV, field, value
-
     var user = new User({
+    gender: req.body.gender,
+    status: req.body.status,
+    cancersubtype: req.body.cancersubtype,
+    language: req.body.language,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     username: req.body.username,
     email:  req.body.email,
     password: req.body.password,
-    role: req.body.role,
+    age: req.body.age,
+    occupation: req.body.occupation,
+    address : req.body.address,
+    city: req.body.city,
+    state: req.body.state,
+    country: req.body.country,
+    profile_pic: req.body.profile_pic,
+    role : req.body.role,
+    cancertype: req.body.cancertype,
+    side_effects: req.body.side_effects,
+    symptoms:req.body.symptoms,
+    story: req.body.story,
+    surgery: req.body.surgery,
+    radiation_therapy: req.body.radiation_therapy,
+    chemo_therapy: req.body.chemo_therapy,
+    immunotherapy: req.body.immunotherapy,
+    targeted_therapy: req.body.targeted_therapy,
+    stem_cell_therapy: req.body.stem_cell_therapy,
     });
 
 
@@ -46,17 +65,7 @@ exports.loginPage = function(req,res)
 
 exports.loginUser = function(req, res) {
 
-  var query
-
-    if(req.body.email)
-    query = {'email':req.body.email}
-    else if (req.body.phone)
-    query = {'phone':req.body.phone}
-    else if (req.body.username)
-    query = {'username':req.body.username}
-
-    if(!query)
-      return Utils.send(res,"error", "required fields are empty")
+  var query = {'username':req.body.username}
 
     User.findOne(query, function(err, user) {
       if(err) return res.send(err);
@@ -93,40 +102,3 @@ exports.getUser = function(req,res) {
     res.json(user)
   })
 }
-
-//function to update user details when username is passed
-exports.updateUser = function(req,res) {
-  var query = {username:req.params.username}
-  var doc = { 
-    firstname:req.body.firstname,
-    lastname:req.body.lastname,
-    phone:req.body.phone,
-      email:req.body.email,
-      password:req.body.password,
-    birthday:req.body.birthday,
-    occupation:req.body.occupation,
-    introduction:req.body.introduction,
-    country:req.body.country,
-    area:req.body.area,
-    work:req.body.work,
-    email: req.body.email}
-  var options = {new:true}
-
-  User.findOneAndUpdate(query, {$set:doc}, options, function(err, user) {
-
-    if(err) return Utils.db_error(res,err)
-    user.password=undefined
-    res.json(user)
-
-  })
-
-  } 
-    
-  exports.searchByName = function(req,res) {
-    var firstname = req.params.firstname;
-    User.find({firstname: new RegExp("^"+firstname, 'i') }, 'firstname lastname username', function(err, result) {
-      if (err) return Utils.db_error(res,err)
-      return res.json(result)
-    })
-  }
-

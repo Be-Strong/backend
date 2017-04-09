@@ -9,25 +9,32 @@ const saltRounds = 10;
 
 //USER SCHEMA
 var userSchema = new Schema({
+
     username: {type: String, unique: true, required:true},
-	email: {type: String, unique: true,required:true},
+	  email: { type: String, unique: true, required:true},
     password: {type:String,required:true},
     firstname: String,
     lastname: String,
-    phone: String,
-    dob: Date,
+    age: Number,
+    gender: String,
     occupation: String,
     address : String,
     city: String,
     state: String,
     country: String,
-    profile_pic: [],
-    role : { type : String, enum : [ 'survivor', 'fighter' ] },
-    reports: [{ type: Schema.Types.ObjectId, ref: 'Report' }],
-    scans: [{ type: Schema.Types.ObjectId, ref: 'Scan' }],
-    drugs: [{ type: Schema.Types.ObjectId, ref: 'Drug' }],
-    stories: [{ type: Schema.Types.ObjectId, ref: 'Story' }],
-    cancerdata : {type: Schema.Types.ObjectId, ref: 'Cancerdata'}
+    profile_pic: String,
+    role : { type : String, enum : [ 'in-treatment', 'post-treatment' ] },
+    status: String,
+    cancertype: String,
+    cancersubtype: String,
+    side_effects: String,
+    symptoms: String,
+    radiation_therapy: String,
+    chemo_therapy: String,
+    immunotherapy: String,
+    targeted_therapy: String,
+    stem_cell_therapy: String,
+    language: String,
 });
 
 // execute before each user save call
