@@ -42,6 +42,7 @@ router.post('/users/login', userController.loginUser)
 
 // get similar survivors
 router.post('/match', matchController.getMatch)
+router.get('/getusers/:username', userController.getUser)
 
 
 app.listen(port);
